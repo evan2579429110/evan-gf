@@ -27,9 +27,10 @@ type UserDao struct {
 // UserColumns defines and stores column names for table user.
 type userColumns struct {
 	Id       string // 用户ID
-	Passport string // 用户账号
+	Name     string // 用户账号
+	NickName string // 用户昵称
 	Password string // 用户密码
-	Nickname string // 用户昵称
+	Status   string // 用户状态：1/正常,-1/禁用
 	CreateAt string // 创建时间
 	UpdateAt string // 更新时间
 }
@@ -42,9 +43,10 @@ var (
 		Table: "user",
 		Columns: userColumns{
 			Id:       "id",
-			Passport: "passport",
+			Name:     "name",
+			NickName: "nick_name",
 			Password: "password",
-			Nickname: "nickname",
+			Status:   "status",
 			CreateAt: "create_at",
 			UpdateAt: "update_at",
 		},
@@ -130,7 +132,7 @@ func (d *UserDao) Option(option int) *UserDao {
 }
 
 // OmitEmpty sets OPTION_OMITEMPTY option for the model, which automatically filers
-// the data and where attribxrutes for empty values.
+// the data and where attributes for empty values.
 func (d *UserDao) OmitEmpty() *UserDao {
 	return &UserDao{M: d.M.OmitEmpty()}
 }

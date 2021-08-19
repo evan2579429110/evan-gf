@@ -7,6 +7,7 @@ require (
 	github.com/go-openapi/jsonreference v0.19.6 // indirect
 	github.com/go-openapi/swag v0.19.15 // indirect
 	github.com/gogf/gf v1.16.5
+	github.com/gogf/gf-jwt v1.1.3 // indirect
 	github.com/gogf/swagger v1.3.0
 	github.com/mailru/easyjson v0.7.7 // indirect
 	github.com/swaggo/swag v1.7.1 // indirect

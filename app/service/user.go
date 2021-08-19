@@ -4,24 +4,22 @@ import (
 	"errors"
 	"evan-gf/app/dao"
 	"evan-gf/app/model"
-	"fmt"
+	"golang.org/x/crypto/bcrypt"
 )
 
 var User = userService{}
 
 type userService struct{}
 
-// 用户注册
-func (s *userService) SignUp(r *model.UserServiceSignUpReq) error {
-	if r.Nickname == "" {
-		r.Nickname = r.Password
+// 登录
+func (s *userService) Login(serviceReq *model.ServiceLoginReq) (*model.User, error) {
+	var q model.User
+	err := dao.User.Where("name = ? and status = ? ", serviceReq.Name, model.Normal).Scan(&q)
+	if err != nil {
+		return nil, errors.New("该用户不存在，请检查")
 	}
-
-	if dao.User.ExistByNickName(r.Nickname) {
-		return errors.New(fmt.Sprintf("账号 %s 已存在", r.Passport))
+	if err = bcrypt.CompareHashAndPassword([]byte(q.Password), []byte(serviceReq.Password)); err != nil {
+		return nil, errors.New("用户/密码错误,请检查")
 	}
-	if _, err := dao.User.Save(r); err != nil {
-		return err
-	}
-	return nil
+	return &q, err
 }

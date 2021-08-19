@@ -26,7 +26,7 @@ func JsonExit(r *ghttp.Request, err int, msg string, data ...interface{}) {
 }
 
 // 成功返回
-func RetSuccess(r *ghttp.Request, data ...interface{}) {
+func RetSuccess(r *ghttp.Request, data interface{}) {
 	JsonExit(r, ERR_OK, "", data)
 }
 
