@@ -6,6 +6,8 @@ import (
 )
 
 func init() {
-	s := g.Server()
-	s.Plugin(&swagger.Swagger{})
+	if g.Cfg().GetBool("swagger.debug") {
+		s := g.Server()
+		s.Plugin(&swagger.Swagger{})
+	}
 }

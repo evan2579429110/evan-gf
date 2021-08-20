@@ -1,6 +1,8 @@
 [server]
     address = ":6061"
 
+[swagger]
+    debug = true
 
 [database]
     [[database.default]]
