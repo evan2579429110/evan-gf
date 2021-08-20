@@ -4,30 +4,8 @@
         "contact": {}
     },
     "paths": {
-        "/user/issignedin": {
-            "get": {
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "用户服务"
-                ],
-                "summary": "判断用户是否已经登录",
-                "responses": {
-                    "200": {
-                        "description": "执行结果:`true/false`",
-                        "schema": {
-                            "$ref": "#/definitions/response.JsonResponse"
-                        }
-                    }
-                }
-            }
-        },
         "/user/profile": {
             "get": {
-                "produces": [
-                    "application/json"
-                ],
                 "tags": [
                     "用户服务"
                 ],
@@ -36,48 +14,13 @@
                     "200": {
                         "description": "用户信息",
                         "schema": {
-                            "$ref": "#/definitions/model.User"
+                            "$ref": "#/definitions/model.UserLoginInfo"
                         }
                     }
                 }
             }
         },
-        "/user/sign-in": {
-            "post": {
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "用户服务"
-                ],
-                "summary": "用户登录接口",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "用户账号",
-                        "name": "passport",
-                        "in": "formData",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "用户密码",
-                        "name": "password",
-                        "in": "formData",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "执行结果",
-                        "schema": {
-                            "$ref": "#/definitions/response.JsonResponse"
-                        }
-                    }
-                }
-            }
-        },
-        "/user/sign-up": {
+        "/user/register": {
             "post": {
                 "produces": [
                     "application/json"
@@ -93,7 +36,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/model.UserApiSignUpReq"
+                            "$ref": "#/definitions/model.ServiceRegisterReq"
                         }
                     }
                 ],
@@ -109,48 +52,30 @@
         }
     },
     "definitions": {
-        "model.User": {
+        "model.ServiceRegisterReq": {
             "type": "object",
             "properties": {
-                "createAt": {
-                    "description": "创建时间",
+                "name": {
                     "type": "string"
                 },
-                "id": {
-                    "description": "用户ID",
-                    "type": "integer"
-                },
-                "nickname": {
-                    "description": "用户昵称",
-                    "type": "string"
-                },
-                "passport": {
-                    "description": "用户账号",
+                "nick_name": {
                     "type": "string"
                 },
                 "password": {
-                    "description": "用户密码",
-                    "type": "string"
-                },
-                "updateAt": {
-                    "description": "更新时间",
                     "type": "string"
                 }
             }
         },
-        "model.UserApiSignUpReq": {
+        "model.UserLoginInfo": {
             "type": "object",
             "properties": {
-                "nickname": {
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
                     "type": "string"
                 },
-                "passport": {
-                    "type": "string"
-                },
-                "password": {
-                    "type": "string"
-                },
-                "password2": {
+                "nick_name": {
                     "type": "string"
                 }
             }

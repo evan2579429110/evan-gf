@@ -122,7 +122,6 @@ func Authenticator(r *ghttp.Request) (interface{}, error) {
 	if err != nil {
 		return nil, err
 	}
-
 	return g.Map{
 		IdentityKey: user.Id,
 		DetailKey: model.UserLoginInfo{

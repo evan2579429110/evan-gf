@@ -11,14 +11,16 @@ func init() {
 	s := g.Server()
 	s.Group("/", func(g *ghttp.RouterGroup) {
 		g.Middleware(service.Middleware.CORS)
+		// todo: 1.考虑账号被删除jwt短时间也能登录的问题,2.登录次数重试
+		// token续签问题由前端解决
 		g.POST("/login", api.Auth.LoginHandler)
 		g.POST("/refresh", api.Auth.RefreshHandler)
 		g.POST("/logout", api.Auth.LogoutHandler)
-		// todo:注册
 
-		g.Group("/user", func(g *ghttp.RouterGroup) {
+		g.Group("/", func(g *ghttp.RouterGroup) {
 			g.Middleware(middlewareAuth)
-			//g.GET("info",api.User.Info)
+			g.POST("/user/register", api.User.Register)
+			g.GET("/user/profile", api.User.Profile)
 
 		})
 

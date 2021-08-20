@@ -11,6 +11,7 @@ require (
 	github.com/gogf/swagger v1.3.0
 	github.com/mailru/easyjson v0.7.7 // indirect
 	github.com/swaggo/swag v1.7.1 // indirect
+	golang.org/x/crypto v0.0.0-20200622213623-75b288015ac9 // indirect
 	golang.org/x/net v0.0.0-20210813160813-60bc85c4be6d // indirect
 	golang.org/x/sys v0.0.0-20210809222454-d867a43fc93e // indirect
 	golang.org/x/text v0.3.7 // indirect
