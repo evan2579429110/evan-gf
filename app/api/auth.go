@@ -17,14 +17,20 @@ var (
 	Auth        *jwt.GfJWTMiddleware
 	IdentityKey = "id"
 	DetailKey   = "user"
+	Key         = g.Cfg().GetString("jwt.key")
 )
+
+type LoginRes struct {
+	Token  string `json:"token"`
+	Expire string `json:"expire"`
+}
 
 // Initialization function,
 // rewrite this function to customized your own JWT settings.
 func init() {
 	authMiddleware, err := jwt.New(&jwt.GfJWTMiddleware{
-		Realm:           "test zone",
-		Key:             []byte("secret key"),
+		Realm:           "gf-realm",
+		Key:             []byte(Key),
 		Timeout:         time.Minute * 5,
 		MaxRefresh:      time.Minute * 5,
 		IdentityKey:     IdentityKey,
@@ -75,12 +81,12 @@ func Unauthorized(r *ghttp.Request, code int, message string) {
 	response.RetFail(r, code, message)
 }
 
-type LoginRes struct {
-	Token  string `json:"token"`
-	Expire string `json:"expire"`
-}
-
-// LoginResponse is used to define customized login-successful callback function.
+// @summary 登录
+// @tags    用户服务
+// @produce json
+// @param   entity  body model.ApiLoginReq true "请求参数"
+// @router  /user/login [POST]
+// @success 200 {object}  LoginRes "返回参数"
 func LoginResponse(r *ghttp.Request, code int, token string, expire time.Time) {
 	response.RetSuccess(r, &LoginRes{
 		token,
@@ -89,6 +95,11 @@ func LoginResponse(r *ghttp.Request, code int, token string, expire time.Time) {
 }
 
 // RefreshResponse is used to get a new token no matter current token is expired or not.
+// @summary 刷新token
+// @tags    用户服务
+// @produce json
+// @router  /user/refresh [POST]
+// @success 200 {object} LoginRes "返回参数"
 func RefreshResponse(r *ghttp.Request, code int, token string, expire time.Time) {
 	response.RetSuccess(r, &LoginRes{
 		token,

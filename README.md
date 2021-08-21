@@ -1,4 +1,6 @@
-### 此项目为gf演示项目
+### 此项目为gf-shop项目
+
+gf swagger --pack
 
 
 目录结构
