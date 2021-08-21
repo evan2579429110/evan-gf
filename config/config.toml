@@ -2,8 +2,13 @@
     address = ":6061"
 
 [swagger]
+    title = "gf的商城测试项目"
+    version = "1.0"
+    description = "这是gf的商城测试项目"
+    host = "127.0.0.1"
     debug = true
-
+[jwt]
+    key = "evan_gf;"
 [database]
     [[database.default]]
         type = "mysql"
