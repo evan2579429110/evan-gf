@@ -1,8 +1,8 @@
 package model
 
 type ApiLoginReq struct {
-	Name     string `json:"name"`
-	Password string `json:"password"`
+	Name     string `v:"required#请输入名称" json:"name"`
+	Password string `v:"required#请输入密码" json:"password"`
 }
 
 /**

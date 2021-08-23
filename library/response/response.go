@@ -31,6 +31,6 @@ func RetSuccess(r *ghttp.Request, data interface{}) {
 }
 
 // 失败返回
-func RetFail(r *ghttp.Request, err int, msg string) {
-	JsonExit(r, err, msg, nil)
+func RetFail(r *ghttp.Request, code int, msg string) {
+	JsonExit(r, code, msg, nil)
 }

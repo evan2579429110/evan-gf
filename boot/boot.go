@@ -1,22 +1,12 @@
 package boot
 
 import (
-	"github.com/gogf/gf/frame/g"
-	"github.com/gogf/swagger"
+	"evan-gf/library/swagger"
 )
 
 func init() {
-	if g.Cfg().GetBool("swagger.debug") {
-		s := g.Server()
-		s.Plugin(&swagger.Swagger{
-			Info: swagger.SwaggerInfo{
-				Title:       g.Cfg().GetString("swagger.title"),
-				Version:     g.Cfg().GetString("swagger.version"),
-				Description: g.Cfg().GetString("swagger.description") + "所有返回格式均为 { code: int , message : string , data : interface },以下展示内容为data",
-			},
-			Schemes: []string{"http", "https"},
-			Host:    g.Cfg().GetString("swagger.host"),
-		})
+	swagger.InitSwagger()
 
-	}
+	// 加载缓存
+	//cache.NewCache(cache.NewRedisCache())
 }
