@@ -3,9 +3,7 @@ package router
 import (
 	"evan-gf/app/api"
 	"evan-gf/app/service"
-	"evan-gf/library/cache"
 	"evan-gf/library/response"
-	"fmt"
 	"github.com/gogf/gf/frame/g"
 	"github.com/gogf/gf/net/ghttp"
 )
@@ -26,20 +24,6 @@ func init() {
 			g.GET("/user/profile", api.User.Profile)
 		})
 
-		g.GET("/i18n", api.User.I18n)
-
-		g.GET("/get", func(r *ghttp.Request) {
-			c := cache.NewCache(cache.NewGCache())
-			err := c.Set("ff", "sfdgs", &cache.Options{})
-			fmt.Println(err)
-		})
-
-		g.GET("/post", func(r *ghttp.Request) {
-			c := cache.NewCache(cache.NewGCache())
-			d, err := c.Get("ff")
-			fmt.Println(d, err)
-		})
-
 		//group.Group("/", func(group *ghttp.RouterGroup) {
 		//	group.Middleware(service.Middleware.Auth)
 		//	//group.ALL("/user/profile", api.User.Profile)
@@ -48,9 +32,11 @@ func init() {
 	})
 
 	s.BindStatusHandlerByMap(map[int]ghttp.HandlerFunc{
-		403: func(r *ghttp.Request) { response.RetFail(r, 403, "拒绝访问") },
-		404: func(r *ghttp.Request) { response.RetFail(r, 404, "未找到该页面") },
-		500: func(r *ghttp.Request) { response.RetFail(r, 500, "服务器内部错误") },
+		403: func(r *ghttp.Request) { response.RetFail(r, 403, service.I18n.GetC(r.Context(), "AccessDenied")) },
+		404: func(r *ghttp.Request) { response.RetFail(r, 404, service.I18n.GetC(r.Context(), "NotFound")) },
+		500: func(r *ghttp.Request) {
+			response.RetFail(r, 500, service.I18n.GetC(r.Context(), "ServerInternalError"))
+		},
 	})
 
 }

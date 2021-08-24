@@ -37,13 +37,3 @@ func (a *userApi) Profile(r *ghttp.Request) {
 	r.GetUploadFiles("upload-file")
 	response.RetSuccess(r, service.User.Profile(r))
 }
-
-func (a *userApi) I18n(r *ghttp.Request) {
-	//ctx := r.Context()
-	var (
-		orderId     = 865271654
-		orderAmount = 99.8
-	)
-	res := service.I18n.Get(r.Context(), "OrderPaid", orderId, orderAmount)
-	response.RetSuccess(r, res)
-}

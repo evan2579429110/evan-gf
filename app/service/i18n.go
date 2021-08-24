@@ -19,6 +19,14 @@ func (i *i18nService) GetInstance(ctx context.Context) *gi18n.Manager {
 	return Context.Get(ctx).I18n
 }
 
+func (i *i18nService) SetLanguage() {
+
+}
+
 func (i *i18nService) Get(ctx context.Context, s string, data ...interface{}) string {
-	return i.GetInstance(ctx).Tf(ctx, `{#OrderPaid}`, 865271654, 99.8)
+	return i.GetInstance(ctx).Tf(ctx, "{#"+s+"}", data...)
+}
+
+func (i *i18nService) GetC(ctx context.Context, s string) string {
+	return i.GetInstance(ctx).T(ctx, "{#"+s+"}")
 }
