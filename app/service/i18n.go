@@ -19,8 +19,9 @@ func (i *i18nService) GetInstance(ctx context.Context) *gi18n.Manager {
 	return Context.Get(ctx).I18n
 }
 
-func (i *i18nService) SetLanguage() {
-
+// 设置语言
+func (i *i18nService) SetLanguage(ctx context.Context, s string) {
+	Context.Get(ctx).I18n.SetLanguage(s)
 }
 
 func (i *i18nService) Get(ctx context.Context, s string, data ...interface{}) string {

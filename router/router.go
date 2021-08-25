@@ -11,7 +11,7 @@ import (
 func init() {
 	s := g.Server()
 	s.Group("/", func(g *ghttp.RouterGroup) {
-		g.Middleware(service.Middleware.CORS, service.Middleware.Ctx)
+		g.Middleware(service.Middleware.CORS, service.Middleware.Ctx, service.Middleware.Log)
 		// todo: 1.考虑账号被删除jwt短时间也能登录的问题,2.登录次数重试
 		// token续签问题由前端解决
 		g.POST("/login", api.Auth.LoginHandler)
